@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demash - Құрылыс материалдары бизнесін дамыту</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B6B; /* Bold pink accent */
+            --secondary-color: #4ECDC4; /* Teal accent */
+            --accent-blue: #45B7D1; /* Blue accent */
+            --accent-green: #27AE60; /* Green accent */
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+            --bg-light: #FAFAFA;
+            --white: #FFFFFF;
+            --shadow-light: 0 4px 20px rgba(0,0,0,0.1);
+            --shadow-bold: 0 10px 40px rgba(255,107,107,0.2);
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --gradient-secondary: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.7; 
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+        .hero { 
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(255,107,107,0.1), rgba(78,205,196,0.1)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0.8;
+            z-index: 1;
+            animation: gradientShift 5s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .hero h1 { 
+            font-family: 'Playfair Display', serif;
+            font-weight: 700; 
+            font-size: 5rem; 
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+        .hero p { 
+            font-size: 1.4rem; 
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        .btn-primary {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+            padding: 15px 40px;
+            border-radius: 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        .btn-primary:hover::before {
+            left: 0;
+        }
+        .btn-primary:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        .btn-success {
+            background: var(--gradient-secondary);
+            border: none;
+            color: var(--white);
+            padding: 15px 40px;
+            border-radius: 0;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-bold);
+        }
+        .navbar {
+            background: transparent !important;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-light);
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--white) !important;
+            letter-spacing: 1px;
+        }
+        .navbar.scrolled .navbar-brand {
+            color: var(--primary-color) !important;
+        }
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .navbar.scrolled .nav-link {
+            color: var(--text-dark) !important;
+        }
+        .navbar.scrolled .nav-link::after {
+            background: var(--primary-color);
+        }
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--text-dark);
+            position: relative;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--gradient-primary);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s ease;
+            position: relative;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,107,107,0.1);
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        .product-card:hover::before {
+            opacity: 0.05;
+        }
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-bold);
+        }
+        .product-img {
+            height: 60%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .product-card:hover .product-img {
+            transform: scale(1.1);
+        }
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        .card-text {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+        .price-tag {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .add-to-cart {
+            background: var(--gradient-primary);
+            border: none;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            cursor: pointer;
+            width: 100%;
+            margin-top: auto;
+        }
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .about-image {
+            height: 500px;
+            object-fit: cover;
+            border-radius: 0;
+            box-shadow: var(--shadow-light);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+        .feature-item i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .presentation-content {
+            background: var(--white);
+            padding: 40px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .presentation-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+        .presentation-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-bold);
+        }
+        .presentation-slide h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .presentation-slide ul {
+            list-style: none;
+            padding: 0;
+        }
+        .presentation-slide ul li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        .presentation-slide ul li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .payment-item {
+            padding: 40px 20px;
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+        .payment-item:hover {
+            transform: translateY(-5px);
+        }
+        .payment-item i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        .payment-item h5 {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+        .delivery-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        .delivery-text ul {
+            list-style: none;
+            padding: 0;
+        }
+        .delivery-text ul li {
+            padding: 10px 0;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.1rem;
+        }
+        .delivery-text ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        .cart-table-container {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            margin-top: 40px;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .cart-table th {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cart-table td {
+            padding: 20px;
+            border-bottom: 1px solid #EEE;
+            vertical-align: middle;
+        }
+        .cart-table tr:hover {
+            background: rgba(255,107,107,0.05);
+        }
+        .quantity-input {
+            border: 1px solid var(--text-light);
+            padding: 10px;
+            border-radius: 0;
+            width: 80px;
+            transition: border-color 0.3s ease;
+        }
+        .quantity-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .remove-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .remove-btn:hover {
+            background: #FF5252;
+            transform: scale(1.05);
+        }
+        .total-row {
+            background: var(--gradient-secondary);
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .total-row td {
+            padding: 25px 20px;
+        }
+        .total-row td:last-child {
+            text-align: right;
+            font-size: 1.4rem;
+        }
+        .checkout-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 40px auto 0;
+            text-align: center;
+            max-width: 300px;
+            letter-spacing: 1px;
+        }
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-bold);
+        }
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 60px;
+            box-shadow: var(--shadow-light);
+        }
+        .form-control, .form-select {
+            border: 1px solid var(--text-light);
+            border-radius: 0;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255,107,107,0.25);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .contact-item {
+            padding: 40px 20px;
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        .contact-item strong {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .testimonials-section {
+            background: var(--white);
+            padding: 100px 0;
+            margin: 80px 0;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .testimonial-item {
+            padding: 40px;
+            background: var(--bg-light);
+            border-left: 5px solid var(--secondary-color);
+            position: relative;
+        }
+        .testimonial-item::before {
+            content: '"';
+            font-size: 6rem;
+            color: var(--primary-color);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .partners-section {
+            padding: 100px 0;
+        }
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .partner-item {
+            padding: 30px;
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease;
+            border-radius: 0;
+        }
+        .partner-item:hover {
+            transform: translateY(-5px);
+        }
+        .partner-logo {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .partner-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-family: 'Playfair Display', serif;
+        }
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: var(--primary-color);
+        }
+        .footer-links {
+            margin: 20px 0;
+        }
+        .footer-links a {
+            margin: 0 15px;
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .about-section, .delivery-section { grid-template-columns: 1fr; }
+            .product-grid { grid-template-columns: 1fr; }
+            .section { padding: 80px 0; }
+            .section-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-hammer"></i> Demash</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Басты бет</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">Біз туралы</a></li>
+                <li class="nav-item"><a class="nav-link" href="#presentation">Презентация</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Каталог</a></li>
+                <li class="nav-item"><a class="nav-link" href="#cart">Себет</a></li>
+                <li class="nav-item"><a class="nav-link" href="#delivery">Жеткізу</a></li>
+                <li class="nav-item"><a class="nav-link" href="#payment">Төлеу</a></li>
+                <li class="nav-item"><a class="nav-link" href="#checkout">Тапсырыс беру</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Байланыс</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section id="home" class="hero reveal">
+    <div class="hero-content">
+        <h1>Demash</h1>
+        <p>Құрылыс материалдарын жеткізудегі сіздің сенімді серіктесіңіз. Біз Алматыдағы бизнесіңіз бен жобаларыңызға қолжетімді бағалармен сапалы өнімдер ұсынамыз. Ассортимент пен қызметтердің толық шолуы үшін біздің презентациямыздағы материалдарды қараңыз.</p>
+        <a href="#products" class="btn btn-primary">Каталогты қарау</a>
+        <a href="#presentation" class="btn btn-primary">Презентация материалдары</a>
+    </div>
+</section>
+
+<section id="about" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Біз туралы</h2>
+        <div class="about-section">
+            <div class="about-text">
+                <p>Demash - Алматыдағы құрылыс материалдарын жеткізудегі жетекші компания. Біз құрылыс, жөндеу және безендіру үшін жоғары сапалы өнімдерге маманданамыз. Инновациялар мен сенімділікке бағытталған біз кез келген күрделіліктегі жобаларды жүзеге асыруға көмектесеміз.</p>
+                <p>Біздің миссиямыз - бәсекелестік бағалармен премиум-класс өнімдерін ұсыну, жылдам жеткізу мен кеңес беру қамтамасыз ету. Сапаны кепілдеу үшін жетекші өндірушілермен ынтымақтасамыз. Қазақстандағы құрылыс саласының дамуына үлес қосқандай мақтанамыз, тауарларды ғана емес, таңдау мен қолдану бойынша сарапшы кеңестерді ұсынамыз.</p>
+                <p>Біздің командамыз көп жылдық тәжірибесі бар мамандардан тұрады, олар сіздің жобаңызға қолайлы шешімдер таңдауға әрқашан дайын. Біз тұрақтылық пен экологияны сенеміз, сондықтан қоршаған ортаға әсерін азайтатын материалдарға басымдық береміз.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" class="about-image" alt="Demash компаниясы туралы">
+        </div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-certificate"></i>
+                <h4>Сертификатталған сапа</h4>
+                <p>Барлық материалдарымыз қатаң сапа бақылауынан өтеді және халықаралық стандарттарға сәйкес сертификаттарға ие.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shipping-fast"></i>
+                <h4>Жылдам жеткізу</h4>
+                <p>Біз Алматы және облысы бойынша жылдам логистиканы қамтамасыз етеміз, тапсырыс күні жеткізу мүмкіндігімен.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-users"></i>
+                <h4>Сарапшы қолдау</h4>
+                <p>Біздің кеңесшілер бюджет пен ерекшеліктерді ескере отырып, сіздің жобаңызға идеалды материалдар таңдауға көмектеседі.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-leaf"></i>
+                <h4>Экологиялық тазалық</h4>
+                <p>Зиянды заттарсыз тұрақты материалдарға басымдық береміз, табиғат пен денсаулыққа қамқорлық үшін.</p>
+            </div>
+        </div>
+        <div class="testimonials-section">
+            <div class="container">
+                <h2 class="section-title" style="margin-bottom: 2rem;">Біздің клиенттеріміз не дейді</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-item">
+                        <p class="testimonial-text">Demash үлкен құрылыс жобасы үшін бізге тамаша материалдар берді. Сапа жоғары, ал бағалар қуантты. Ұсынамын!</p>
+                        <p class="testimonial-author">- А. Иванов, "АлматыСтрой" құрылыс компаниясы</p>
+                    </div>
+                    <div class="testimonial-item">
+                        <p class="testimonial-text">Жылдам жеткізу және кәсіби кеңес біздің жөндеуді қарапайым және тиімді етті. Demash командасына рақмет!</p>
+                        <p class="testimonial-author">- М. Сарсенова, Интерьер дизайнері</p>
+                    </div>
+                    <div class="testimonial-item">
+                        <p class="testimonial-text">Опттық жеңілдіктер және кең ассортимент - біздің бизнес үшін дәл қажет. Сенімді серіктес!</p>
+                        <p class="testimonial-author">- К. Жұмабаев, Құрылыс подрядшысы</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="partners-section">
+            <div class="container">
+                <h2 class="section-title">Біздің серіктесіміз</h2>
+                <p class="text-center mb-5" style="font-size: 1.2rem; color: var(--text-light);">Қазақстандағы жетекші құрылыс компанияларымен серіктестікке мақтанамыз. Бірге елдің болашағын құрамыз.</p>
+                <div class="partners-grid">
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">BI Group</h5>
+                        <p>Қазақстандағы ең ірі құрылыс холдингі.</p>
+                    </div>
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">Velesstroy</h5>
+                        <p>Өнеркәсіптік құрылыстағы лидер.</p>
+                    </div>
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">ERSAI Caspian Contractor</h5>
+                        <p>Мұнай-газ жобалары бойынша мамандар.</p>
+                    </div>
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">Kazakh Construction Group</h5>
+                        <p>Мұнай-газ секторындағы сарапшылар.</p>
+                    </div>
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">INTEGRA CONSTRUCTION KZ</h5>
+                        <p>Құрылыс қызметтерінің кең спектрлері.</p>
+                    </div>
+                    <div class="partner-item">
+                        <div class="partner-logo"><i class="fas fa-building"></i></div>
+                        <h5 class="partner-name">KAZGOR</h5>
+                        <p>Жобалау және құрылыстағы лидер.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="presentation" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Презентация материалдары</h2>
+        <p class="text-center mb-5" style="font-size: 1.2rem; color: var(--text-light);">Өнімдеріміз бен қызметтеріміз туралы негізгі идеялар мен егжей-тегжейлер, сіздің ыңғайлылығыңызға бейімделген. Презентация ассортиментті, артықшылықтарды және кейстерді қамтиды. Жақсы түсіну үшін визуалды элементтер мен қосымша деректер қостық.</p>
+        <div class="presentation-grid">
+            <div class="presentation-content">
+                <div class="presentation-slide">
+                    <h5><i class="fas fa-building"></i> Компанияға шолу</h5>
+                    <p>Demash - инновациялық құрылыс материалдарын жеткізуші. Тұрақтылық пен сапаға бағытталған. Негізгі қызметтер: жеткізу, логистика, кеңес беру. 2010 жылдан бастап 1000-нан астам жобаларды қызмет көрсетеміз.</p>
+                    <ul>
+                        <li>Ассортимент: 500+ өнім</li>
+                        <li>Клиенттер: 1000+ жоба</li>
+                        <li>Аудан: Алматы және облысы</li>
+                        <li>Қойма: 5000 м²</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="presentation-content">
+                <div class="presentation-slide">
+                    <h5><i class="fas fa-tools"></i> Материалдардың артықшылықтары</h5>
+                    <p>Барлық өнімдер сертификатталған, экологиялық таза. Оптта 20%-ға дейін үнемдеу. Біз беріктік пен ұзақ мерзімділікке тұрақты тесттер өткіземіз.</p>
+                    <ul>
+                        <li>Ұзақтығы: +50% қызмет мерзімі</li>
+                        <li>Экология: Зиянды заттарсыз</li>
+                        <li>Кепілдік: 2-5 жыл</li>
+                        <li>Сертификаттар: ISO 9001</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="presentation-content">
+                <div class="presentation-slide">
+                    <h5><i class="fas fa-chart-line"></i> Нарықтық талдаулар</h5>
+                    <p>Қазақстандағы құрылыс материалдары нарығының өсуі: жылына +15%. Demash премиум-сегментте лидер. Нарық талдауы экологиялық материалдарға сұранысты көрсетеді.</p>
+                    <ul>
+                        <li>Трендтер: Эко-материалдар, ақылды құрылыс</li>
+                        <li>Кейстер: Алматыдағы табысты жобалар</li>
+                        <li>Болжам: 2026 жылы кеңею</li>
+                        <li>Нарық үлесі: 12%</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="presentation-content">
+                <div class="presentation-slide">
+                    <h5><i class="fas fa-handshake"></i> Серіктестік</h5>
+                    <p>Халықаралық брендтермен серіктестік. Бизнес үшін жеке ұсыныстар. Тұрақты клиенттерге эксклюзивті жағдайлар ұсынамыз.</p>
+                    <ul>
+                        <li>Опт 10 000 теңгеден</li>
+                        <li>Не сифр кредит опциялары</li>
+                        <li>Техникалық қолдау</li>
+                        <li>Серіктес: Knauf, Saint-Gobain</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="https://www.canva.com/design/DAG0tpwQB1o/view" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> Толық презентацияны ашу</a>
+        </div>
+    </div>
+</section>
+
+<section id="products" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Өнімдер каталогы</h2>
+        <p class="text-center mb-5" style="font-size: 1.2rem; color: var(--text-light);">Жоғары сапалы құрылыс материалдарының кең ассортименті. Әр өнім максималды сенімділік пен тиімділікті қамтамасыз ету үшін мұқият таңдалған.</p>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://www.gobrick.com/content/userfiles/images/brick-pile-stock.jpg" class="product-img" alt="Қызыл кірпіш">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-cube"></i> Қызыл кірпіш</h5>
+                    <div class="price-tag">Бағасы: 10 теңге / дана</div>
+                    <p class="card-text">Сыртқы және ішкі жұмыстарға арналған жоғары сапалы керамикалық кірпіш. Мамырға төзімділігі мен беріктігі жоғары. Негіздер мен қабырғалар үшін идеалды.</p>
+                    <button class="add-to-cart" data-id="1" data-name="Қызыл кірпіш" data-price="10" data-unit="дана">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.pexels.com/photos/29817952/pexels-photo-29817952.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="product-img" alt="Қапта цемент">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-bag"></i> Қапта цемент</h5>
+                    <div class="price-tag">Бағасы: 500 теңге / қап</div>
+                    <p class="card-text">Бетон мен ерітінділер дайындауға арналған М500 портландцемент. Жоғары адгезия және жылдам қатып қалу. Барлық түрдегі құрылыс жұмыстарына жарамды.</p>
+                    <button class="add-to-cart" data-id="2" data-name="Қапта цемент" data-price="500" data-unit="қап">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://p.turbosquid.com/ts-thumb/BK/3R6mb5/vG/pile_of_construction_sand_360/jpg/1697056974/1920x1080/turn_fit_q99/3eeebb9cfef449c2d06909986cfe4de13d062646/pile_of_construction_sand_360-1.jpg" class="product-img" alt="Құрылыс құмы">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-mountain"></i> Құрылыс құмы</h5>
+                    <div class="price-tag">Бағасы: 1000 теңге / тонна</div>
+                    <p class="card-text">Бетон қоспалары мен штукатуркаға арналған жуылған өзен құмы. Таза, қоспасыз, фракция 0.5-2 мм. Құрылымдардың жоғары беріктігін қамтамасыз етеді.</p>
+                    <button class="add-to-cart" data-id="3" data-name="Құрылыс құмы" data-price="1000" data-unit="тонна">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.pexels.com/photos/19408681/pexels-photo-19408681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="product-img" alt="Арматура болат">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-bars"></i> Арматура болат</h5>
+                    <div class="price-tag">Бағасы: 50 теңге / м</div>
+                    <p class="card-text">Бетонды арматуралауға арналған 12 мм диаметрлі А500С тегіс арматура. Ұзатуға жоғары беріктік, антикоррозиялық өңдеу.</p>
+                    <button class="add-to-cart" data-id="4" data-name="Арматура болат" data-price="50" data-unit="м">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://aboffs.com/cdn/shop/files/REGALInteriorUSGallonEGGSHELL_2000x.jpg?v=1739977467" class="product-img" alt="Қабырға бояуы">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-paint-brush"></i> Қабырға бояуы</h5>
+                    <div class="price-tag">Бағасы: 2000 теңге / банка</div>
+                    <p class="card-text">Ішкі кеңістік үшін су-дисперсиялық акрилді бояу. Мата, жуылатын, иіссіз. 1л-ге дейін 10 м² жабу, палитрада 20 түс.</p>
+                    <button class="add-to-cart" data-id="5" data-name="Қабырға бояуы" data-price="2000" data-unit="банка">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://www.avalonflooring.com/cdn/shop/articles/Ceramic-Porcelain-Tile_Silk-Light-Grey-Matte_e5bdb2a4-bad7-4cba-82f7-90c65a82611b_2048x.jpg?v=1670015238" class="product-img" alt="Еденге керамикалық плитка">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-gem"></i> Еденге керамикалық плитка</h5>
+                    <div class="price-tag">Бағасы: 500 теңге / м²</div>
+                    <p class="card-text">60x60 см керамогранит, мат, тайғақ емес. Жоғары тозуға төзімділігі, PEI IV класы. Тұрғын және коммерциялық үйлерге жарамды.</p>
+                    <button class="add-to-cart" data-id="6" data-name="Еденге керамикалық плитка" data-price="500" data-unit="м²">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/713H1XuScQL.jpg" class="product-img" alt="Фанера">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-layer-group"></i> Фанера</h5>
+                    <div class="price-tag">Бағасы: 800 теңге / пара</div>
+                    <p class="card-text">ФК фанера 1520x1520 мм, 12 мм, қайың. Ылғалға төзімді, опалубка және жиһазға. Оңай өңделеді, тегіс беткі.</p>
+                    <button class="add-to-cart" data-id="7" data-name="Фанера" data-price="800" data-unit="пара">Себетке қосу</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61PxkjQlxKL.jpg" class="product-img" alt="Металл төбе парақтары">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-roof"></i> Металл төбе парақтары</h5>
+                    <div class="price-tag">Бағасы: 1500 теңге / пара</div>
+                    <p class="card-text">С-21 профнастил, мырышталған, 1.2 мм. Ұзындығы 2 м, полимерлік жабын. Оңай орнату, ұзақтығы 50 жылға дейін.</p>
+                    <button class="add-to-cart" data-id="8" data-name="Металл төбе парақтары" data-price="1500" data-unit="пара">Себетке қосу</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="delivery" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Жеткізу</h2>
+        <div class="delivery-section">
+            <div class="delivery-text">
+                <h4 style="color: var(--primary-color); font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 30px;">Жеткізу жағдайлары</h4>
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">Біз Алматы және Алматы облысы бойынша жеткіземіз. 50 000 теңгеден тегін жеткізу. Біздің логистикамыз жылдамдық пен қауіпсіздік үшін оңтайландырылған.</p>
+                <ul>
+                    <li>Курьерлік жеткізу: қала ішінде 2000 теңге, облыс бойынша 3000 теңге</li>
+                    <li>Мерзімі: 1-2 күн, экспресс - тапсырыс күні қосымша төлеммен</li>
+                    <li>Өзі алу: қоймамыздан тегін, 9:00-ден 18:00-ге дейін</li>
+                    <li>Үлкен габарит: арнайы көлік, жеке есептеу</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic;">Біз тауарларды жолда зақымдануын болдырмау үшін сенімді қаптаймыз.</p>
+            </div>
+            <img src="https://informburo.kz/storage/photos/21/main/15rAS0i5MIyiM5bx85etCR0eU0gAYXqeeiyYKEHo.jpg" class="img-fluid about-image" alt="Алматы қаласының картасы" style="box-shadow: var(--shadow-light);">
+        </div>
+    </div>
+</section>
+
+<section id="payment" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Төлеу</h2>
+        <div class="payment-grid">
+            <div class="payment-item">
+                <i class="fas fa-credit-card"></i>
+                <h5>Онлайн карта арқылы</h5>
+                <p>Visa, Mastercard, Kaspi Pay. Қорғалған шлюз арқылы қауіпсіз төлемдер.</p>
+            </div>
+            <div class="payment-item">
+                <i class="fas fa-money-bill"></i>
+                <h5>Ақшамен</h5>
+                <p>Курьерден немесе қоймада алу кезінде. Ыңғайлы және қарапайым.</p>
+            </div>
+            <div class="payment-item">
+                <i class="fas fa-bank"></i>
+                <h5>Аударым арқылы</h5>
+                <p>Компанияның шотына реквизиттер бойынша. Опттық тапсырыстар үшін.</p>
+            </div>
+            <div class="payment-item">
+                <i class="fas fa-percent"></i>
+                <h5>Бөліп төлеу</h5>
+                <p>Серіктес банктер арқылы 12 айға дейін. Лояльды клиенттерге 0% комиссия.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="cart" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Себет</h2>
+        <div class="cart-table-container">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Өнім</th>
+                        <th>Баға</th>
+                        <th>Саны</th>
+                        <th>Сомасы</th>
+                        <th>Әрекеттер</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items"></tbody>
+                <tr id="total-row" class="total-row" style="display: none;">
+                    <td colspan="3">Жалпы</td>
+                    <td id="total-amount">0 теңге</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <a href="#checkout" class="checkout-btn" id="checkout-link" style="display: none;"><i class="fas fa-arrow-right"></i> Тапсырыс беру</a>
+    </div>
+</section>
+
+<section id="checkout" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Тапсырыс беру</h2>
+        <div class="form-section">
+            <form id="order-form">
+                <input type="text" class="form-control" id="name" placeholder="Атыңыз және тегіңіз" required>
+                <input type="text" class="form-control" id="address" placeholder="Жеткізу мекенжайы (Алматы, Университет көшесі, ҚазҰУ)" required>
+                <input type="email" class="form-control" id="email" placeholder="Растау үшін email" required>
+                <input type="tel" class="form-control" id="phone" placeholder="Телефон (+7 XXX XXX XX XX)" required>
+                <select class="form-select" id="payment-method">
+                    <option>Онлайн карта арқылы</option>
+                    <option>Алу кезінде ақшамен</option>
+                    <option>Банк аударымы</option>
+                    <option>Бөліп төлеу</option>
+                </select>
+                <textarea class="form-control" rows="3" placeholder="Тапсырысқа түсініктеме (міндетті емес)"></textarea>
+                <button type="submit" class="btn btn-primary w-100">Тапсырысты жіберу</button>
+            </form>
+            <div class="text-center mt-4" style="font-size: 0.9rem; color: var(--text-light);">
+                <p>Сіздің деректеріңіз қорғалған. Растау үшін 30 минут ішінде байланысамыз.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section reveal">
+    <div class="container">
+        <h2 class="section-title">Байланыс</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p><strong>Email:</strong> info@demash.kz</p>
+                <p>Ассортимент бойынша сұрақтар немесе кеңес үшін бізге жазыңыз.</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <p><strong>Телефон:</strong> +7 (727) 123-45-67</p>
+                <p>Дүйсенбі-жұма, 9:00-ден 19:00-ге дейін қоңырауларды қабылдаймыз.</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p><strong>Мекенжай:</strong> Алматы, Университет көшесі, ҚазҰУ, 101 офис</p>
+                <p>Қойма: Сатпаев көшесі, 25. Парковка қолжетімді.</p>
+            </div>
+        </div>
+        <div class="form-section" style="margin-top: 60px;">
+            <h4 style="text-align: center; color: var(--primary-color); margin-bottom: 30px;">Бізге жазыңыз</h4>
+            <form id="contact-form">
+                <input type="text" class="form-control" id="contact-name" placeholder="Атыңыз">
+                <input type="email" class="form-control" id="contact-email" placeholder="Email">
+                <textarea class="form-control" id="contact-message" rows="5" placeholder="Хабарламаңыз"></textarea>
+                <button type="submit" class="btn btn-primary w-100">Хабарлама жіберу</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer class="reveal">
+    <div class="container">
+        <p>&copy; 2025 Demash. Барлық құқықтар қорғалған. | <span class="footer-links">
+            <a href="#privacy">Құпиялылық саясаты</a>
+            <a href="#terms">Пайдалану шарттары</a>
+            <a href="#delivery">Жеткізу және қайтару</a>
+        </span></p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">Болашақты құруға арналған махаббатпен әзірленді.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const totalRow = document.getElementById('total-row');
+        const checkoutLink = document.getElementById('checkout-link');
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            const sum = item.price * item.quantity;
+            total += sum;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.price} теңге / ${item.unit}</td>
+                <td><input type="number" class="quantity-input" min="1" step="0.1" value="${item.quantity}" onchange="updateQuantity(${item.id}, this.value)" /> <span style="margin-left: 10px; color: var(--text-light);">${item.unit}</span></td>
+                <td>${sum.toFixed(2)} теңге</td>
+                <td><button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i> Жою</button></td>
+            `;
+            cartItems.appendChild(row);
+        });
+        document.getElementById('total-amount').textContent = total.toFixed(2) + ' теңге';
+        totalRow.style.display = cart.length > 0 ? 'table-row' : 'none';
+        checkoutLink.style.display = cart.length > 0 ? 'inline-block' : 'none';
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function updateQuantity(id, qty) {
+        const item = cart.find(item => item.id === parseInt(id));
+        if (item) {
+            item.quantity = parseFloat(qty);
+            if (item.quantity <= 0) {
+                removeFromCart(item.id);
+            } else {
+                updateCart();
+            }
+        }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== parseInt(id));
+        updateCart();
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = parseInt(button.dataset.id);
+            const name = button.dataset.name;
+            const price = parseFloat(button.dataset.price);
+            const unit = button.dataset.unit;
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1, unit });
+            }
+            updateCart();
+            button.textContent = 'Қосылды!';
+            button.style.background = 'var(--accent-green)';
+            setTimeout(() => { 
+                button.textContent = 'Себетке қосу'; 
+                button.style.background = '';
+            }, 2000);
+        });
+    });
+
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (cart.length === 0) {
+            alert('Себет бос!');
+            return;
+        }
+        const orderData = {
+            name: document.getElementById('name').value,
+            address: document.getElementById('address').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            payment: document.getElementById('payment-method').value,
+            items: cart,
+            total: document.getElementById('total-amount').textContent
+        };
+        console.log('Тапсырыс:', orderData);
+        alert('Тапсырыс сәтті жіберілді! Тапсырыс нөмірі: #' + Math.floor(Math.random() * 10000));
+        cart = [];
+        localStorage.removeItem('cart');
+        updateCart();
+        e.target.reset();
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Хабарлама жіберілді! Жуық арада байланысамыз.');
+        e.target.reset();
+    });
+
+    updateCart();
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
